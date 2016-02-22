@@ -1,0 +1,22 @@
+body {
+  margin: 0 auto;
+}
+
+#title {
+  text-align: center;
+}
+
+#tictactoe {
+  margin: 50px auto;
+  border-collapse: collapse;
+}
+
+.field {
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+  font-size: 70px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 100px;
+}

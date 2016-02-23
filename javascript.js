@@ -1,32 +1,33 @@
 $(function() {
-  var fields = $( '.field' ), currentPlayer = 1, playersScore = [0, 0], played = 0;
+  var fields = $( '.field' ), currentPlayer = 0, playersScore = [0, 0], playersSigns = ['X', 'O'], moves = 0;
 
-  var start = function() {
-    var value = 1;
-    $('td').each(function() {
-      this.value = value;
-      value *= 2;
-    })
-  }
-  start();
+  $('td').each(function(index) {
+    this.value = Math.pow(2, index);
+  })
 
-  fields.on("click", function(event) {
+  fields.click(function(event) {
     if($(this).html() !== "")
       return;
 
-    if(currentPlayer == 1)
-      $(this).html('X');
-    else
-      $(this).html('O');
+    $(this).html(playersSigns[currentPlayer]);
 
     playersScore[currentPlayer] += this.value;
     checkWinner(playersScore[currentPlayer]);
+    nextMove();
     changePlayer();
   })
 
   var checkWinner = function(score) {
     if(winning(score)){
-      alert("Player " + currentPlayer + " won!");
+      var player = playersSigns[currentPlayer];
+      alert("Player " + player + " won!");
+      reset();
+    }
+  }
+
+  var nextMove = function() {
+    if((++moves) == 9){
+      alert("Tie!");
       reset();
     }
   }
@@ -38,13 +39,13 @@ $(function() {
   var reset = function() {
     playersScore = [0, 0];
     fields.html('');
+    moves = 0;
   }
 
   var winning = function(score) {
     var winningValues = [7, 56, 448, 73, 146, 292, 273, 84];
-    for (var i in winningValues)
-      if ((score & winningValues[i]) === winningValues[i])
-        return true;
-    return false;
+    return winningValues.find(function(value) {
+      return (score & value) === value;
+    })
   }
 })

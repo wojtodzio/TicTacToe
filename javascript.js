@@ -11,7 +11,7 @@ $(function() {
 
     $(this).html(playersSigns[currentPlayer]);
 
-    playersScore[currentPlayer] += this.value;
+    playersScore[currentPlayer] |= this.value;
     if(!checkWinner(playersScore[currentPlayer]))
       nextMove();
     changePlayer();

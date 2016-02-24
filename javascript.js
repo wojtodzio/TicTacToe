@@ -12,8 +12,8 @@ $(function() {
     $(this).html(playersSigns[currentPlayer]);
 
     playersScore[currentPlayer] += this.value;
-    checkWinner(playersScore[currentPlayer]);
-    nextMove();
+    if(!checkWinner(playersScore[currentPlayer]))
+      nextMove();
     changePlayer();
   })
 
@@ -22,6 +22,7 @@ $(function() {
       var player = playersSigns[currentPlayer];
       alert("Player " + player + " won!");
       reset();
+      return true;
     }
   }
 
